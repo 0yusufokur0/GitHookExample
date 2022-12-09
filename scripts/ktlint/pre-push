@@ -6,7 +6,8 @@ status=$?
 if [ "$status" = 0 ]; then
     echo "No formatting issues were found"
     git add .
-    git commit -m "Code formatted with ktlin"
+    git commit -m "Code formatted with ktlint"
+    git push
     exit 0
 else
     echo 1>&2 "* There are code formatting issues that must be addressed"
