@@ -1,7 +1,7 @@
 task testCreateFile(type: Copy){
-    def gitHooksPreCommitFile = new File("${rootProject.rootDir}/.git/hooks/pre-commit")
+    def gitHooksPreCommitFile = new File("${rootProject.rootDir}/.git/hooks/pre-push")
     if(!gitHooksPreCommitFile.exists()) {
-        def preCommitFile = new File("${rootProject.rootDir}/scripts/ktlint/pre-commit")
+        def preCommitFile = new File("${rootProject.rootDir}/scripts/ktlint/pre-push")
         def fileContents = preCommitFile.getText('UTF-8')
         gitHooksPreCommitFile.text = fileContents
     }
