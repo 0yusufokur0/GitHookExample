@@ -1,6 +1,9 @@
-task installGitHooks(type: Copy) {
-    from new File(rootProject.rootDir, 'pre-commit')
-    into { new File(rootProject.rootDir, '.git/hooks') }
+task testCreateFile(type: Copy){
+    def gitHooksPreCommitFile = new File("${rootProject.rootDir}/.git/hooks/pre-commit")
+    if(!gitHooksPreCommitFile.exists()) {
+        def preCommitFile = new File("${rootProject.rootDir}/scripts/ktlint/pre-commit")
+        def fileContents = preCommitFile.getText('UTF-8')
+        gitHooksPreCommitFile.text = fileContents
+    }
 }
-
-build.dependsOn installGitHooks
+build.dependsOn testCreateFile
