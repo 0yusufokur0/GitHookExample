@@ -1,8 +1,5 @@
 #!/bin/sh
 echo "Checking code formatting"
-# set the hooksPath config to point to a versioned directory :
-git config core.hooksPath './hooks'
-
 ./gradlew app:ktlintFormat --daemon
 status=$?
 
