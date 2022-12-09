@@ -2,7 +2,9 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
 }
-apply from:"../scripts/ktlint.gradle"
+apply from:"../scripts/ktlint/ktlint.gradle"
+apply from:"../scripts/ktlint/install_ktlint_git_hooks.gradle"
+
 android {
     namespace 'com.example.githookexample'
     compileSdk 32
