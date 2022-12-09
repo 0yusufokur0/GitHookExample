@@ -1,0 +1,50 @@
+// see https://github.com/pinterest/ktlint#usage for more
+
+configurations {
+    ktlint
+}
+def outputDir = "${project.buildDir}/reports/ktlint/"
+
+task ktlint(type: JavaExec, group: "verification") {
+    description = "Check Kotlin code style."
+    classpath = configurations.ktlint
+    main = "com.pinterest.ktlint.Main"
+
+    args = [
+            "-F",
+            "src/**/*.kt",
+            "--disabled_rules=import-ordering,final-newline,no-wildcard-imports,max-line-length,filename",
+            "--reporter=checkstyle,output=${outputDir}ktlint-checkstyle-report.xml",
+            "--reporter=plain,output=${outputDir}ktlint-plain-report.txt",
+            "--reporter=sarif,output=${outputDir}ktlint-sarif-report.json"
+    ]
+}
+
+task ktlintFormat(type: JavaExec, group: "formatting") {
+    description = "Fix Kotlin code style deviations."
+    classpath = configurations.ktlint
+    main = "com.pinterest.ktlint.Main"
+    args = [
+            "-F",
+            "src/**/*.kt",
+            "--disabled_rules=import-ordering,final-newline,no-wildcard-imports,max-line-length,filename",
+            "--reporter=checkstyle,output=${outputDir}ktlint-checkstyle-report.xml",
+            "--reporter=plain,output=${outputDir}ktlint-plain-report.txt",
+            "--reporter=sarif,output=${outputDir}ktlint-sarif-report.json"
+    ]
+}
+
+
+check.dependsOn ktlint
+
+tasks.getByPath("preBuild").dependsOn("ktlint")
+
+
+
+check.dependsOn ktlint
+
+
+dependencies {
+
+    ktlint "com.pinterest:ktlint:0.45.2"
+}
